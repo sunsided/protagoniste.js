@@ -1,0 +1,7 @@
+.DS_Store
+public/gen
+lib/
+*.swp
+node_modules
+.idea/workspace.xml
+npm-debug.log
