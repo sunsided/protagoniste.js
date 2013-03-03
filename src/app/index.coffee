@@ -7,6 +7,12 @@ derby.use(require '../../ui')
 
 start = +new Date()
 
+get '/entity(/list)?', (page, model) ->
+
+  # Render will use the model data as well as an optional context object
+  console.log("GAH!")
+  page.render 'entity', {}
+
 # Derby routes can be rendered on the client and the server
 get '/(room\::roomName)?', (page, model, {roomName}) ->
   roomName ||= 'home'

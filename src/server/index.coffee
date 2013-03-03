@@ -4,7 +4,6 @@ express = require 'express'
 gzippo = require 'gzippo'
 derby = require 'derby'
 app = require '../app'
-entity = require '../entity'
 serverError = require './serverError'
 
 
@@ -42,7 +41,6 @@ expressApp
   # Adds req.getModel method
   .use(store.modelMiddleware())
   # Creates an express middleware from the app's routes
-  .use(entity.router())
   .use(app.router())
   .use(expressApp.router)
   .use(serverError root)
