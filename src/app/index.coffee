@@ -8,7 +8,7 @@ derby.use(require '../../ui')
 start = +new Date()
 
 # Derby routes can be rendered on the client and the server
-get '/:roomName?', (page, model, {roomName}) ->
+get '/(room\::roomName)?', (page, model, {roomName}) ->
   roomName ||= 'home'
 
   # Subscribes the model to any updates on this room's object. Calls back
