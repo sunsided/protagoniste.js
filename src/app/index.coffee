@@ -2,16 +2,35 @@ derby = require 'derby'
 {get, view, ready} = derby.createApp module
 derby.use(require '../../ui')
 
+###
+  Multi-page example in
+  https://github.com/codeparty/derby-examples/blob/master/directory/lib/app/index.js
+###
 
 ## ROUTES ##
 
 start = +new Date()
 
 get '/entity(/list)?', (page, model) ->
+  page.redirect '/entities'
 
-  # Render will use the model data as well as an optional context object
-  console.log("GAH!")
-  page.render 'entity', {}
+get '/entities', (page, model) ->
+  # Query all available entities
+  modelQuery = model.query('entities').all() # .forGroup(groupName) # TODO: use to classify entity types later
+
+  model.subscribe 'entities', modelQuery, (err, entities) ->
+
+    model.refList '_entities', entities, 'entities'
+
+    # Add some default todos if this is a new group. Items inserted into
+    # a refList will automatically get an 'id' property if not specified
+    unless entities.get()
+      console.log 'Bootstrapping entity list'
+      model.push '_entityList',
+        {name: 'Example entity'},
+        {name: 'Another entity'}
+
+    page.render 'entity', {}
 
 # Derby routes can be rendered on the client and the server
 get '/(room\::roomName)?', (page, model, {roomName}) ->

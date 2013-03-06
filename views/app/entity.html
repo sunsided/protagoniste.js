@@ -4,3 +4,24 @@
 <Body:>
   <h1>entity catchall</h1>
   <p><label>This is a test of the <a href="/entity">/entity</a> and <a href="/entity/list">/entity/list</a> routes.</label></p>
+
+  <div id=content>
+    <h2>entity list</h2>
+    <ul id=entities>{#each _entityList}<app:entity>{/}
+    </ul>
+  </div>
+
+
+<entity:>
+  <li data-id={{id}}>
+    <table width=100%>
+      <tr>
+        <td class=handle width=0></td>
+        <td width=100%>
+          <div class=entity>
+            <div contenteditable>{unescaped .name}</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </li>
