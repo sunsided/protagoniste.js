@@ -16,7 +16,7 @@ derby.use(derby.logPlugin)
 store = derby.createStore listen: server
 
 # define query motifs
-store.query.expose 'entity.list', 'all', () ->
+store.query.expose 'entities', 'all', () ->
   this
 
 ONE_YEAR = 1000 * 60 * 60 * 24 * 365

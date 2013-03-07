@@ -18,12 +18,18 @@ get '/entities', (page, model) ->
   # Query all available entities
 
   # TODO: Query does not work - why?
-  # modelQuery = model.query('entity.list').all() # .forGroup(groupName) # TODO: use to classify entity types later
+  query = model.query('entities').all() # .forGroup(groupName) # TODO: use to classify entity types later
 
-  model.subscribe 'entities', 'entity.list', (err, entities) ->
+  model.subscribe query, (err, entities) ->
+    console.log entities.get()
 
-    model.refList '_entityList', entities, 'entity.list'
+    model.ref '_entityList', entities
 
+    model.push '_entityList',
+      {name: 'Example entity'},
+      {name: 'Another entity'}
+
+    ###
     # Add some default todos if this is a new group. Items inserted into
     # a refList will automatically get an 'id' property if not specified
     unless entities.get()
@@ -31,6 +37,7 @@ get '/entities', (page, model) ->
       model.push '_entityList',
         {name: 'Example entity'},
         {name: 'Another entity'}
+    ###
 
     page.render 'entity', {}
 
