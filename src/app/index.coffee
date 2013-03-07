@@ -16,11 +16,13 @@ get '/entity(/list)?', (page, model) ->
 
 get '/entities', (page, model) ->
   # Query all available entities
-  modelQuery = model.query('entities').all() # .forGroup(groupName) # TODO: use to classify entity types later
 
-  model.subscribe 'entities', modelQuery, (err, entities) ->
+  # TODO: Query does not work - why?
+  # modelQuery = model.query('entity.list').all() # .forGroup(groupName) # TODO: use to classify entity types later
 
-    model.refList '_entities', entities, 'entities'
+  model.subscribe 'entities', 'entity.list', (err, entities) ->
+
+    model.refList '_entityList', entities, 'entity.list'
 
     # Add some default todos if this is a new group. Items inserted into
     # a refList will automatically get an 'id' property if not specified
