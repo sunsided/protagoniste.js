@@ -21,20 +21,13 @@ get '/entities', (page, model) ->
   query = model.query('entities').all() # .forGroup(groupName) # TODO: use to classify entity types later
 
   model.subscribe query, (err, entities) ->
-    console.log entities.get()
 
     model.ref '_entityList', entities
 
-    model.push '_entityList',
-      {name: 'Example entity'},
-      {name: 'Another entity'}
-
     ###
-    # Add some default todos if this is a new group. Items inserted into
-    # a refList will automatically get an 'id' property if not specified
     unless entities.get()
       console.log 'Bootstrapping entity list'
-      model.push '_entityList',
+      model.push 'entities',
         {name: 'Example entity'},
         {name: 'Another entity'}
     ###
